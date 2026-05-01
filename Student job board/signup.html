@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SJB | Create Account</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="container topbar">
+    <a class="brand" href="index.html">
+      <img src="logo1.png" alt="SJB Logo">
+      <div>
+        <div class="title">SJB</div>
+        <div class="subtitle" data-i18n="brandSubtitle">Unlock Your Potential</div>
+      </div>
+    </a>
+
+    <nav class="nav">
+      <a href="index.html" data-i18n="navHome">Home</a>
+      <a href="job.html" data-i18n="navJobs">Jobs</a>
+      <a href="auth.html" data-i18n="navLogin">Login</a>
+      <a href="#" id="navDash" data-i18n="navDash">Dashboard</a>
+    </nav>
+
+    <div class="actions">
+      <button class="lang" id="langBtn">AR</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="hero">
+      <h1 data-i18n="createAccount">Create Account</h1>
+      <div class="decor"><span></span><i></i><i></i><span></span></div>
+    </div>
+
+    <div class="panel">
+      <div class="stack" style="justify-content:space-between;align-items:center">
+        <div>
+          <div class="badgeRole" id="roleLabel">Student/User</div>
+          <div class="small" data-i18n="demoNote" style="margin-top:6px">Demo only (no real OAuth without backend).</div>
+        </div>
+        <div class="stack">
+          <button type="button" class="btn primary" data-role="user" data-i18n="roleStudent">Student/User</button>
+          <button type="button" class="btn" data-role="company" data-i18n="roleCompany">Company</button>
+          </div>
+      </div>
+
+      <div class="hr"></div>
+
+      <form id="authForm">
+        <input type="hidden" id="authRole" value="user">
+        <div class="formGrid">
+          <div class="field">
+            <label data-i18n="name">Full Name</label>
+            <input id="authName" type="text" required placeholder="John Doe" />
+          </div>
+          
+          <div class="field" id="locationField" style="display:none">
+            <label data-i18n="location">Location</label>
+            <input id="authLocation" type="text" placeholder="Cairo / Alexandria / Remote" />
+          </div>
+
+          <div class="field">
+            <label data-i18n="email">Email</label>
+            <input id="authEmail" type="email" required placeholder="example@email.com" />
+          </div>
+          <div class="field">
+            <label data-i18n="password">Password</label>
+            <input id="authPassword" type="password" required />
+          </div>
+        </div>
+
+        <div class="stack" style="margin-top:14px; justify-content:space-between; align-items:center;">
+          <div class="small">
+            <span style="color:#64748b;">Already have an account?</span> 
+            <a href="auth.html" style="font-weight:bold; color:#0f172a; text-decoration:underline;">Sign In</a>
+          </div>
+          <button class="btn primary" type="submit" data-i18n="createAccount">Create Account</button>
+        </div>
+      </form>
+
+      <div class="hr"></div>
+
+      <div class="small" data-i18n="orContinue">or continue with</div>
+      <div class="stack" style="margin-top:10px">
+        <button class="btn outline oauthBtn" type="button" data-provider="google">G · <span data-i18n="google">Google</span></button>
+        <button class="btn outline oauthBtn" type="button" data-provider="apple"> · <span data-i18n="apple">Apple</span></button>
+        <button class="btn outline oauthBtn" type="button" data-provider="facebook">f · <span data-i18n="facebook">Facebook</span></button>
+        <button class="btn outline oauthBtn" type="button" data-provider="linkedin">in · <span data-i18n="linkedin">LinkedIn</span></button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container" data-i18n="footerText">© 2026 Student Job Board. All rights reserved.</div>
+  </footer>
+
+  <script src="i18n.js"></script>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+  
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const roleButtons = document.querySelectorAll("[data-role]");
+    const locationField = document.getElementById("locationField");
+    const nameField = document.getElementById("authName");
+
+    // Default state: Student
+    locationField.style.display = "none";
+
+    roleButtons.forEach(btn => {
+      btn.addEventListener("click", function () {
+        const role = btn.getAttribute("data-role");
+
+        if (role === "company") {
+          locationField.style.display = "block"; // Show location for companies
+          nameField.setAttribute("placeholder", "Company Name"); // Switch placeholder
+        } else {
+          locationField.style.display = "none";  // Hide location for students
+          nameField.setAttribute("placeholder", "John Doe");
+        }
+      });
+    });
+  });
+  </script>
+
+</body>
+</html>
